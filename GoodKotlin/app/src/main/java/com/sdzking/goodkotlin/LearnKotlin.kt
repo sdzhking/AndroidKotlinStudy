@@ -1,5 +1,6 @@
 package com.sdzking.goodkotlin
 
+import java.lang.IllegalArgumentException
 import kotlin.math.max
 import kotlin.math.min
 
@@ -9,7 +10,7 @@ fun main() {
     val good = 9
     println(good)
 
-    var good2 =10
+    var good2 = 10
     println("good2=$good2")
     good2 = 123
     println("good2=$good2")
@@ -17,8 +18,8 @@ fun main() {
     var good3 = "wd12"
     println("good3=$good3")
 
-    var a:Int = 100
-    a = a*10
+    var a: Int = 100
+    a = a * 10
     println(a)
 
     println(largerNumber(good2, a))
@@ -40,7 +41,8 @@ fun main() {
     student2.eat()
     student2.name = "zhang"
     student2.eat()
-
+    student2.name.lettersCount()
+    student2.name.reversed()
     doStudy(student2)
 
     val phone1 = Cellphone("小米", 1999.99)
@@ -52,10 +54,10 @@ fun main() {
 
     Singleton.bookinfo()
     val book1 = Singleton
-    book1.bookname="语文"
+    book1.bookname = "语文"
     book1.bookinfo()
     val book2 = Singleton
-    book2.price=562
+    book2.price = 562
     book2.bookinfo()
 
     println("==============不可变列表========")
@@ -99,18 +101,101 @@ fun main() {
     val newFruitslist = fruitslist.map { it.uppercase() }
     printListItems(newFruitslist)
     println("-------少于等于5个单词的水果---------")
-    val newList = fruitslist.filter { it.length <=5 }.map { it.uppercase() }
+    val newList = fruitslist.filter { it.length <= 5 }.map { it.uppercase() }
     printListItems(newList)
     println("-------any 和 all---------")
-    val anyResult = fruitslist.any{it.length <= 5}
-    val allResult = fruitslist.all{it.length <= 5}
+    val anyResult = fruitslist.any { it.length <= 5 }
+    val allResult = fruitslist.all { it.length <= 5 }
     println("anyresult is $anyResult, allresult is $allResult")
 
     println("==============线程写法========")
     Thread { println("Thread is running") }.start()
 
     doStudy(null)
+
+    eatFruits(fruitslist)
+
+    println("==============函数with用法========")
+    eatFruitsWith(fruitslist)
+    println("==============函数run用法========")
+    eatFruitsRun(fruitslist)
+    println("==============函数Apply用法========")
+    eatFruitsApply(fruitslist)
+    println("==============函数静态方法========")
+    Util.doAction2()
+
+    doSomething()
+
+    println("==============密封类优化========")
+    // getResultMsg getResultSMsg
+
+
 }
+
+//密封类优化之前
+fun getResultMsg(result: Result) = when (result) {
+    is Success -> result.msg
+    is Failure -> result.error.message
+    else -> throw IllegalArgumentException()
+}
+
+//密封类优化之后
+fun getResultSMsg(result: ResultS) = when (result) {
+    is SuccessS -> result.msg
+    is FailureS -> result.error.message
+}
+
+fun eatFruits(fruitslist: MutableList<String>) {
+
+    val builder = StringBuilder()
+    builder.append("Start eating fruits.\n")
+    for (fruit in fruitslist) {
+        builder.append(fruit).append("\n")
+    }
+    builder.append("Ate all fruits")
+    val result = builder.toString()
+    println(result)
+}
+
+fun eatFruitsWith(fruitslist: MutableList<String>) {
+
+    val result = with(StringBuilder()) {
+        append("Start eating fruits.\n")
+        for (fruit in fruitslist) {
+            append(fruit).append("\n")
+        }
+        append("Ate all fruits")
+        toString()
+    }
+    println(result)
+}
+
+fun eatFruitsRun(fruitslist: MutableList<String>) {
+
+    val result = StringBuilder().run {
+        append("Start eating fruits.\n")
+        for (fruit in fruitslist) {
+            append(fruit).append("\n")
+        }
+        append("Ate all fruits")
+        toString()
+    }
+    println(result)
+}
+
+fun eatFruitsApply(fruitslist: MutableList<String>) {
+
+    val result = StringBuilder().apply {
+        append("Start eating fruits.\n")
+        for (fruit in fruitslist) {
+            append(fruit).append("\n")
+        }
+        append("Ate all fruits")
+        toString()
+    }
+    println(result)
+}
+
 
 private fun printListItems(newList: List<String>) {
     for (fruit in newList) {
@@ -122,6 +207,7 @@ private fun doStudy(student2: Student?) {
     student2?.readBooks()
     student2?.doHomework()
 }
+
 private fun doStudy2(student2: Student?) {
     student2?.let {
         it.readBooks()
@@ -130,9 +216,9 @@ private fun doStudy2(student2: Student?) {
 
 }
 
-fun getTextLength(text: String?) = text?.length ?:0
+fun getTextLength(text: String?) = text?.length ?: 0
 
-fun largerNumber(number1:Int, number2:Int): Int {
+fun largerNumber(number1: Int, number2: Int): Int {
     return max(number1, number2)
 }
 
@@ -146,11 +232,11 @@ fun getScore(name: String) = when (name) {
     else -> 0
 }
 
-fun checkNumber (num: Number) = when (num) {
-        is Int -> println("这是一个数字")
-        is Double -> println("这是一个DOUNBE")
-        else -> println("我针的不知道了")
-    }
+fun checkNumber(num: Number) = when (num) {
+    is Int -> println("这是一个数字")
+    is Double -> println("这是一个DOUNBE")
+    else -> println("我针的不知道了")
+}
 
 
 

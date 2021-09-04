@@ -3,35 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/getrspbtn"
+        android:id="@+id/startNomalActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="获取响应按钮"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="启动第二个Activity"
-        android:textAllCaps="false"
+        android:text="Start NomalActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_finish"
+        android:id="@+id/startDialogActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="关闭Activity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"/>
+        android:text="start DialogActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/startNomalActivity"
+        app:layout_constraintTop_toBottomOf="@+id/startNomalActivity"
+        app:layout_constraintStart_toStartOf="@+id/startNomalActivity" />
 </androidx.constraintlayout.widget.ConstraintLayout>
