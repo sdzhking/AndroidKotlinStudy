@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.view.GravityCompat
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +18,20 @@ class MainActivity : AppCompatActivity() {
 
             it.setDisplayHomeAsUpEnabled(true)
             it.setHomeAsUpIndicator(R.drawable.ic_menu)
+        }
+
+        navView.setCheckedItem(R.id.navCall)
+        navView.setNavigationItemSelectedListener {
+            drawerLayout.closeDrawers()
+            true
+        }
+
+        fab.setOnClickListener {view ->
+            toastMsg("FAB clicked")
+            Snackbar.make(view, "Data deleted", Snackbar.LENGTH_SHORT)
+                .setAction("Undo") {
+                    toastMsg("Data restored")
+                }.show()
         }
     }
 
