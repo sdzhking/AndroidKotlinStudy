@@ -11,7 +11,9 @@
         android:theme="@style/Theme.MaterialTest">
         <activity
             android:name=".FruitActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/FruitActivityTheme"
+            />
         <activity
             android:name=".MainActivity"
             android:exported="true"
