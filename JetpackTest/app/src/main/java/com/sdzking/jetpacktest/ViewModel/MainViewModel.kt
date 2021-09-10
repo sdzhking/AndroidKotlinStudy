@@ -2,6 +2,7 @@ package com.sdzking.jetpacktest.ViewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 class MainViewModel(countReserved: Int) : ViewModel() {
@@ -21,5 +22,11 @@ class MainViewModel(countReserved: Int) : ViewModel() {
 
     fun clear() {
         _counter.value = 0
+    }
+
+    private val userLivedata = MutableLiveData<User>()
+    //只对外显示名字
+    val userName: LiveData<String> = Transformations.map(userLivedata){ user ->
+        "${user.firstName} ${user.lastName}"
     }
 }
