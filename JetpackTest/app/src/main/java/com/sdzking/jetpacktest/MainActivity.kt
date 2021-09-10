@@ -5,11 +5,10 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.edit
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 import com.sdzking.jetpacktest.ViewModel.MainViewModel
 import com.sdzking.jetpacktest.ViewModel.MainViewModelFactory
+import com.sdzking.jetpacktest.entity.User
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Character.UnicodeBlock.of
 
@@ -45,6 +44,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycle.addObserver(MyObserver(lifecycle))
+
+        getUserBtn.setOnClickListener {
+            val userId = (0..10000).random().toString()
+            viewModel.getUser(userId)
+        }
+        viewModel.user.observe(this){ user ->
+
+            infoText.text = user.firstName
+
+        }
     }
 
     private fun refreshCounter() {

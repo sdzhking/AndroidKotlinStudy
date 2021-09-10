@@ -34,4 +34,14 @@
         app:layout_constraintEnd_toEndOf="@+id/plusOneBtn"
         app:layout_constraintStart_toStartOf="@+id/plusOneBtn"
         app:layout_constraintTop_toBottomOf="@+id/plusOneBtn" />
+
+    <Button
+        android:id="@+id/getUserBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get User"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/clearBtn"
+        app:layout_constraintStart_toStartOf="@+id/clearBtn"
+        app:layout_constraintTop_toBottomOf="@+id/clearBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
