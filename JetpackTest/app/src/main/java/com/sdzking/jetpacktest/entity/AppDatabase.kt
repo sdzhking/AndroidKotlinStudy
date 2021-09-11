@@ -6,7 +6,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 
-@Database(version = 2, entities = [User::class, Book::class])
+@Database(version = 3, entities = [User::class, Book::class])
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
@@ -24,6 +24,15 @@ abstract class AppDatabase : RoomDatabase() {
 
         }
 
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "alter table Book add column author text not null default 'unknown'"
+                )
+            }
+
+        }
+
         private var instance: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
@@ -35,7 +44,7 @@ abstract class AppDatabase : RoomDatabase() {
                 context.applicationContext, AppDatabase::class.java,
                 "app_database"
             )
-                .addMigrations(MIGRATION_1_2)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                 .build().apply {
                     instance = this
                 }
