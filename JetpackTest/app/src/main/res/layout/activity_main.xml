@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
+        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -44,4 +45,45 @@
         app:layout_constraintEnd_toEndOf="@+id/clearBtn"
         app:layout_constraintStart_toStartOf="@+id/clearBtn"
         app:layout_constraintTop_toBottomOf="@+id/clearBtn" />
+
+
+    <Button
+        android:id="@+id/addDataBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Data"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/getUserBtn"
+        app:layout_constraintStart_toStartOf="@+id/getUserBtn"
+        app:layout_constraintTop_toBottomOf="@+id/getUserBtn" />
+
+    <Button
+        android:id="@+id/updateDataBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Updata Data"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/addDataBtn"
+        app:layout_constraintStart_toStartOf="@+id/addDataBtn"
+        app:layout_constraintTop_toBottomOf="@+id/addDataBtn" />
+
+    <Button
+        android:id="@+id/deleteDataBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Data"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/updateDataBtn"
+        app:layout_constraintStart_toStartOf="@+id/updateDataBtn"
+        app:layout_constraintTop_toBottomOf="@+id/updateDataBtn" />
+
+    <Button
+        android:id="@+id/queryDataBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Query Data"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/deleteDataBtn"
+        app:layout_constraintStart_toStartOf="@+id/deleteDataBtn"
+        app:layout_constraintTop_toBottomOf="@+id/deleteDataBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

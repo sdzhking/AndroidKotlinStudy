@@ -9,9 +9,11 @@ import androidx.core.content.edit
 import androidx.lifecycle.*
 import com.sdzking.jetpacktest.ViewModel.MainViewModel
 import com.sdzking.jetpacktest.ViewModel.MainViewModelFactory
+import com.sdzking.jetpacktest.entity.AppDatabase
 import com.sdzking.jetpacktest.entity.User
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Character.UnicodeBlock.of
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainViewModel
@@ -51,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 //            viewModel.getUser(userId)
             viewModel.refresh()
         }
-        viewModel.user.observe(this){ user ->
+        viewModel.user.observe(this) { user ->
 
             infoText.text = user.firstName
 
@@ -61,6 +63,40 @@ class MainActivity : AppCompatActivity() {
         viewModel.refreshResult.observe(this) {
             Log.d("TAG", "refreshResult:  datachange")
         }
+
+        roomDataMethod()
+    }
+
+    private fun roomDataMethod() {
+        val userDao = AppDatabase.getDatabase(this).userDao()
+        val user1 = User("Tom", "Brady", 40)
+        val user2 = User("Tom", "Hanks", 63)
+        addDataBtn.setOnClickListener {
+            thread {
+                user1.id = userDao.insertUser(user1)
+                user2.id = userDao.insertUser(user2)
+            }
+        }
+        updateDataBtn.setOnClickListener {
+            thread {
+                user1.age = 42
+                userDao.updatUser(user1)
+            }
+        }
+        deleteDataBtn.setOnClickListener {
+            thread {
+                userDao.deleteUserByLastName("Hanks")
+            }
+        }
+        queryDataBtn.setOnClickListener {
+            thread {
+                for (user in userDao.loadAllUsers()) {
+                    Log.d("TAG", "roomDataMethod: ${user.toString()}")
+                }
+            }
+        }
+
+
     }
 
     private fun refreshCounter() {
