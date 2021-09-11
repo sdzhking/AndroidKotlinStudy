@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.*
 import com.sdzking.jetpacktest.ViewModel.MainViewModel
@@ -47,12 +48,18 @@ class MainActivity : AppCompatActivity() {
 
         getUserBtn.setOnClickListener {
             val userId = (0..10000).random().toString()
-            viewModel.getUser(userId)
+//            viewModel.getUser(userId)
+            viewModel.refresh()
         }
         viewModel.user.observe(this){ user ->
 
             infoText.text = user.firstName
 
+            Log.d("TAG", "onCreate:  datachange")
+        }
+
+        viewModel.refreshResult.observe(this) {
+            Log.d("TAG", "refreshResult:  datachange")
         }
     }
 
