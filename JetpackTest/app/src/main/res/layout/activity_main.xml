@@ -86,4 +86,15 @@
         app:layout_constraintEnd_toEndOf="@+id/deleteDataBtn"
         app:layout_constraintStart_toStartOf="@+id/deleteDataBtn"
         app:layout_constraintTop_toBottomOf="@+id/deleteDataBtn" />
+
+
+    <Button
+        android:id="@+id/doWorkBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do Work"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/queryDataBtn"
+        app:layout_constraintStart_toStartOf="@+id/queryDataBtn"
+        app:layout_constraintTop_toBottomOf="@+id/queryDataBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

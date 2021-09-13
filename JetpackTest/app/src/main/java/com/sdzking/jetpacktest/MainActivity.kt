@@ -7,12 +7,16 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.*
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.sdzking.jetpacktest.ViewModel.MainViewModel
 import com.sdzking.jetpacktest.ViewModel.MainViewModelFactory
 import com.sdzking.jetpacktest.entity.AppDatabase
 import com.sdzking.jetpacktest.entity.User
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Character.UnicodeBlock.of
+import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -65,6 +69,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         roomDataMethod()
+
+        doWorkBtn.setOnClickListener {
+            WorkManager.getInstance(this).cancelAllWork()
+            val request = OneTimeWorkRequest.Builder(SimpleWorker::class.java)
+                    .addTag("simple")
+                    .build()
+            WorkManager.getInstance(this).enqueue(request)
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.id).observe(this) {
+                if (it.state == WorkInfo.State.SUCCEEDED) {
+                    Log.d("SimpleWorker", "do work in simpleworker succeeded")
+                } else if (it.state == WorkInfo.State.FAILED) {
+                    Log.d("SimpleWorker", "do work in simpleworker failed")
+                }
+            }
+        }
+
+
     }
 
     private fun roomDataMethod() {
